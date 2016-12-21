@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/susiirwin/express-train#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0",

@@ -1,6 +1,7 @@
 const assert = require('assert');
 const app = require('../server');
 const request = require('request');
+const fixtures = require('./fixtures');
 
 describe('Server', () => {
 
@@ -36,6 +37,14 @@ describe('Server', () => {
       });
     });
 
+    it('should not return 404', (done) => {
+      this.request.post('/trains', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      });
+    });
+
     it('should have a body with the name of the application', (done) => {
       var title = app.locals.title;
 
@@ -43,6 +52,52 @@ describe('Server', () => {
         if (error) {done(error);}
         assert(response.body.includes(title),
                 `"${response.body}" does not include "${title}".`);
+        done();
+      });
+    });
+
+  });
+
+  describe('POST /trains', () => {
+    beforeEach(() => {
+      app.locals.trains = {};
+    });
+
+    it('should receive and store data', (done) => {
+      var payload = { train: fixtures.validTrain };
+
+      this.request.post('/trains', { form: payload }, (error, response) => {
+        if (error) { done(error); }
+
+        var trainCount = Object.keys(app.locals.trains).length;
+
+        assert.equal(trainCount, 1, `Expected 1 trains, found ${trainCount}`);
+
+        done();
+      });
+    });
+  });
+
+  describe('GET /trains/:id', () => {
+    beforeEach(() => {
+      app.locals.trains.testTrain = fixtures.validTrain;
+    });
+
+    it('should not return 404', (done) => {
+      this.request.get('/trains/testTrain', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      })
+    });
+
+    it('should return a page that has the title of the train', (done) => {
+      var train = app.locals.trains.testTrain;
+
+      this.request.get('/trains/testTrain', (error, response) => {
+        if (error) { done(error); }
+        assert(response.body.includes(train.name),
+                `"${response.body}" does not include "${train.name}".`)
         done();
       });
     });
