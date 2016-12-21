@@ -1,0 +1,31 @@
+{
+  "name": "express-train",
+  "version": "0.0.1",
+  "description": "An app to track Trains.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/susiirwin/express-train.git"
+  },
+  "keywords": [
+    "Express",
+    "Mocha.",
+    "Chai"
+  ],
+  "author": "susiirwin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/susiirwin/express-train/issues"
+  },
+  "homepage": "https://github.com/susiirwin/express-train#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "request": "^2.79.0"
+  }
+}
